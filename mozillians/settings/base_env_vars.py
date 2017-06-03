@@ -148,7 +148,7 @@ TEMPLATES = [
         'OPTIONS': {
             'debug': DEBUG,
             'app_dirname': 'jinja2',
-            'match_extension': None,
+            'match_extension': '.html',
             'newstyle_gettext': True,
             'undefined': 'jinja2.Undefined',
             'extensions': DEFAULT_EXTENSIONS + [
@@ -205,6 +205,7 @@ STATICFILES_FINDERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'mozillians.common.middleware.LocaleURLMiddleware',
     'multidb.middleware.PinningRouterMiddleware',
 
@@ -553,8 +554,11 @@ def _username_algo(email):
 
 
 OIDC_USERNAME_ALGO = _username_algo
-OIDC_RP_CLIENT_SECRET_ENCODED = config('OIDC_RP_CLIENT_SECRET_ENCODED', default=True, cast=bool)
 OIDC_STORE_ACCESS_TOKEN = config('OIDC_STORE_ACCESS_TOKEN', default=True, cast=bool)
-OIDC_OP_DOMAIN = config('OIDC_OP_DOMAIN', default='auth.mozilla.auth0.com')
 OIDC_RP_CLIENT_ID = config('OIDC_RP_CLIENT_ID', default='')
 OIDC_RP_CLIENT_SECRET = config('OIDC_RP_CLIENT_SECRET', default='')
+OIDC_RP_CLIENT_SECRET_ENCODED = config('OIDC_RP_CLIENT_SECRET_ENCODED', default=True, cast=bool)
+OIDC_OP_DOMAIN = config('OIDC_OP_DOMAIN', default='auth.mozilla.auth0.com')
+OIDC_OP_AUTHORIZATION_ENDPOINT = config('OIDC_OP_AUTHORIZATION_ENDPOINT', default='')
+OIDC_OP_TOKEN_ENDPOINT = config('OIDC_OP_TOKEN_ENDPOINT', default='')
+OIDC_OP_USER_ENDPOINT = config('OIDC_OP_USER_ENDPOINT', default='')
